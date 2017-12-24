@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+		}
+		body,html{
+			height: 100%;
+		}
+		ul{
+			height: 100%;
+		}
+		ul li{
+			height: 100%;
+			text-align: center;
+		}
+		ul li img{
+			width: 100%;
+		}
+
+		ol{
+			position: fixed;
+			top: 50px;
+			left: 50px;
+		}
+		ol li{
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			border: 1px solid #000;
+			bottom-bottom:-1px;
+		}
+
+	</style>
+</head>
+<body>
+	<ul>
+		<li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514132630119&di=ff28b3f370ff98530161960fcfc21321&imgtype=0&src=http%3A%2F%2Fp3.gexing.com%2Fkongjianpifu%2F20121029%2F1821%2F508e58a060a94.jpg" alt=""></li>
+		<li>袜子区域</li>
+		<li>裙子区域</li>
+		<li>帽子区域</li>
+		<li>裤子区域</li>
+	</ul>
+
+	<ol>
+		<li>鞋子区</li>
+		<li>袜子区</li>
+		<li>裙子区</li>
+		<li>帽子区</li>
+		<li>裤子区</li>
+	</ol>
+</body>
+</html>
+<script src='animate.js'></script>
+<script>
+
+var olObj = document.getElementsByTagName('ol')[0];
+var ulObj = document.getElementsByTagName('ul')[0];
+
+var olArr = olObj.children;
+var ulArr = ulObj.children;
+
+var colorArr = ['#f00','#ff0','#0f0','#00f','#e0f'];
+var timer = null;
+var target = 0,leader = 0;
+
+
+for (var i = 0; i < colorArr.length; i++) {
+	olArr[i].style.backgroundColor = colorArr[i];
+	ulArr[i].style.backgroundColor = colorArr[i];
+
+	olArr[i].index = i;
+
+	olArr[i].onclick = function () {
+
+		target = ulArr[this.index].offsetTop;
+		clearInterval(timer);
+
+		timer = setInterval(function () {
+			step = (target - leader) / 10;
+
+			step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+			leader += step;
+
+			window.scrollTo(0, leader);
+
+			if(Math.abs(target - leader) <= Math.abs(step)){
+				window.scrollTo(0,target);
+				clearInterval(timer);
+			}
+		},25);
+	}
+
+}
+
+
+
+
+
+window.onscoll = function () {
+	leader =  scroll().top;
+}
+
+
+
+</script>
+
